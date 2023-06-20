@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DocumentController;
 
 /*
@@ -30,5 +32,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('documents', DocumentController::class);
+Route::resource('categories', CategoryController::class);
+Route::resource('users', UserController::class);
+Route::post('/categories/search', [CategoryController::class, 'search'])->name('categories.search');
 
 require __DIR__.'/auth.php';
