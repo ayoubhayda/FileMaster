@@ -32,12 +32,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('documents', DocumentController::class);
-<<<<<<< HEAD
 Route::post('documents/search', [DocumentController::class, 'search'])->name('documents.search');
-=======
 Route::resource('categories', CategoryController::class);
 Route::resource('users', UserController::class);
 Route::post('/categories/search', [CategoryController::class, 'search'])->name('categories.search');
->>>>>>> 4ef379088396fbb282af9c1dec7ac545a4680811
 
 require __DIR__.'/auth.php';
