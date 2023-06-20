@@ -30,5 +30,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('documents', DocumentController::class);
+Route::post('documents/search', [DocumentController::class, 'search'])->name('documents.search');
 
 require __DIR__.'/auth.php';

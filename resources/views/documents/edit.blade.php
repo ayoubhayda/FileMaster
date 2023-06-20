@@ -36,13 +36,14 @@
 <div class="px-6 pt-2 pb-14">
   <div class="px-6 py-6 lg:px-8 bg-white shadow-lg rounded-lg">
     <h3 class="mb-4 text-xl font-medium text-gray-900">Add a new document</h3>
-    <form class="space-y-6" action={{route('documents.store')}} method="POST" enctype="multipart/form-data">
+    <form class="space-y-6" action={{route('documents.update', $document->id)}} method="POST" enctype="multipart/form-data">
       @csrf
+      @method("PUT")
       <div>
         <label for="name" class="block mb-2 text-sm font-medium text-gray-900">File name</label>
         <input type="text" name="name" id="name"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
-          placeholder="Enter the file name" value="{{ old('name') }}" required>
+          placeholder="Enter the file name" value="{{ $document->name }}" required>
         @error('name')
             <span class="text-sm text-red-500">* {{$message}}</span>
         @enderror
@@ -66,7 +67,7 @@
                 <p class="text-xs text-gray-500 mx-auto">DOCS, PDF, PPTX (MAX. 5 MB)</p>
               </div>
             </div>
-            <input id="dropzone-file" name="file" type="file" class="hidden"  required />
+            <input id="dropzone-file" name="file" type="file" class="hidden" />
           </label>
         </div>
         @error('file')
@@ -76,22 +77,22 @@
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label for="cotegory_id" class="block mb-2 text-sm font-medium text-gray-900">Categories</label>
-          <select id="countries" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  required>
+          <select id="countries" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
             <option disabled selected hidden>Choose a category</option>
 
             {{-- categories list --}}
 
             @foreach ($categories as $category)
               
-              @if ( old('category_id') == $category->id)
-                <option value="{{$category->id}}" selected>{{$category->name}}</option>
+              @if ( $document->category_id == $category->id)
+              <option value="{{$category->id}}" selected>{{$category->name}}</option>
               @else
-                <option value="{{$category->id}}">{{$category->name}}</option>
+              <option value="{{$category->id}}">{{$category->name}}</option>
               @endif
-
+              
             @endforeach
           </select>
-          @error('category_id')
+          @error('category')
             <span class="text-sm text-red-500">* {{$message}}</span>
         @enderror
         </div>
@@ -100,21 +101,19 @@
           <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg sm:flex">
             <li class="w-full border-r rounded-l-lg border-gray-300 bg-gray-50 sm:border-b-0 sm:border-r">
               <div class="flex items-center pl-3">
-                <input id="horizontal-list-radio-license" type="radio" value="1" name="visibility" class="w-4 h-4 text-blue-600 bg-white border-gray-400 focus:ring-blue-500 focus:ring-2" checked>
+                <input id="horizontal-list-radio-license" type="radio" value="1" name="visibility" class="w-4 h-4 text-blue-600 bg-white border-gray-400 focus:ring-blue-500 focus:ring-2"  {{ $document->visibility == 1 ? 'checked' : '' }}>
                 <label for="horizontal-list-radio-license" class="w-full py-2.5 ml-2 text-sm font-medium text-gray-900">Visible</label>
               </div>
             </li>
             <li class="w-full border-b border-gray-300 bg-gray-50 rounded-r-lg sm:border-b-0">
               <div class="flex items-center pl-3">
-                <input id="horizontal-list-radio-id" type="radio" value="0" name="visibility" class="w-4 h-4 text-blue-600 bg-white border-gray-400 focus:ring-blue-500 focus:ring-2">
+                <input id="horizontal-list-radio-id" type="radio" value="0" name="visibility" class="w-4 h-4 text-blue-600 bg-white border-gray-400 focus:ring-blue-500 focus:ring-2"  {{ $document->visibility == 0 ? 'checked' : '' }}>
                 <label for="horizontal-list-radio-id" class="w-full py-2.5 ml-2 text-sm font-medium text-gray-900">Non Visible</label>
               </div>
             </li>
           </ul>
         </div>  
-        @error('visibility')
-            <span class="text-sm text-red-500">* {{$message}}</span>
-        @enderror
+
       </div>
       <button type="submit"
         class="w-full text-white my-6 bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Enregistre</button>

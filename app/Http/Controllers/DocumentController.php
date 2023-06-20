@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Document;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\DocumentStore;
+use Illuminate\Support\Facades\File;
+use App\Http\Requests\DocumentUpdate;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
@@ -12,7 +18,10 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        return view('documents.index');
+        $categories = Category::All();
+        $documents = Document::All();
+        $search = '';
+        return view('documents.index', compact('categories', 'documents', 'search'));
     }
 
     /**
@@ -20,15 +29,21 @@ class DocumentController extends Controller
      */
     public function create()
     {
-        return view('documents.create');
+        $categories = Category::all();
+        return view('documents.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DocumentStore $request)
     {
-        //
+        $validatedData = $request->validated();
+        $slug = Str::slug($validatedData['name'], '-') . '.' . $validatedData['file']->extension();
+        $validatedData['file']->move(public_path('files'), $slug);
+        $validatedData['file'] = $slug;
+        Document::create($validatedData);
+        return redirect()->route('documents.index');
     }
 
     /**
@@ -44,15 +59,38 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
-        //
+        $categories = Category::All();
+        return view('documents.edit', compact('categories', 'document'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Document $document)
+    public function update(DocumentUpdate $request, Document $document)
     {
-        //
+
+        $validatedData = $request->validated();
+
+        if ($request->hasFile('file')) {
+            $slug = Str::slug($validatedData['name'], '-') . '.' . $validatedData['file']->extension();
+        
+            // Delete the old file if it exists
+            if ($document->file) {
+                $filePath = public_path('files/' . $document->file);
+                if (File::exists($filePath)) {
+                    File::delete($filePath);
+                }
+            }
+        
+            // Store the new file
+            $validatedData['file']->move(public_path('files'), $slug);
+            $validatedData['file'] = $slug;
+        }
+        
+
+        $document->update($validatedData);
+
+        return redirect()->route('documents.index');
     }
 
     /**
@@ -60,6 +98,21 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-        //
+        $document->delete();
+        $filePath = public_path('files/' . $document->file);
+        if (File::exists($filePath)) {
+            File::delete($filePath);
+        }
+        return redirect()->route('documents.index');
+    }    
+
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $documents = Document::where('name', 'like', '%' . $search . '%')->get();
+        $categories = Category::all();
+        return view('documents.index', compact('documents', 'categories', 'search'));
     }
+
 }
