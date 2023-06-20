@@ -1,7 +1,9 @@
+@section('title', 'Accueil')
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Accueil') }}
         </h2>
     </x-slot>
 
@@ -98,7 +100,7 @@
                         la suppression.</p>
                 </div>
                 <div class="p-6 pt-0">
-                    <a href="{{ route('documents.index') }}" class="inline-block">
+                    <a href="{{ route('users.index') }}" class="inline-block">
                         <button
                             class="flex select-none items-center gap-3 rounded-lg border-2 border-sky-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-sky-500 transition-all hover:opacity-75 hover:bg-sky-500 hover:text-white focus:ring focus:ring-blue-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                             type="button" data-ripple-dark="true">
