@@ -73,4 +73,14 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index');
     }
+
+    /**
+     * Search the specified resource from storage.
+     */
+
+    public function search(Request $request)
+    {
+        $users = User::where('name','like', '%'.$request->input('search').'%')->get();
+        return view('users.index', compact("users") );
+    }
 }
