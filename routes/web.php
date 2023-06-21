@@ -36,5 +36,6 @@ Route::post('documents/search', [DocumentController::class, 'search'])->name('do
 Route::resource('categories', CategoryController::class);
 Route::resource('users', UserController::class);
 Route::post('/categories/search', [CategoryController::class, 'search'])->name('categories.search');
+Route::post('/users/search', [UserController::class, 'search'])->name('users.search');
 
 require __DIR__.'/auth.php';
