@@ -4,17 +4,15 @@
 
 @section('category')
 <li>
-  <a href="#"
-    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
+  <a href={{route('documents.index')}}
+    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Tout</a>
 </li>
+@foreach ($categories as $category)
 <li>
-  <a href="#"
-    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Billing</a>
+  <a href={{route('categories.show', $category->id)}}
+    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{$category->name}}</a>
 </li>
-<li>
-  <a href="#"
-    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>
-</li>
+@endforeach
 @endsection
 
 {{-- content page --}}
@@ -24,8 +22,8 @@
   <div class="py-6 px-6 flex">
     <nav>
       <ol class="flex items-center gap-2">
-        <li class="text-base text-slate-700 font-medium">Dashboard /</li>
-        <li class="text-base text-sky-500 font-medium">Table</li>
+        <li class="text-base text-slate-700 font-medium">Document /</li>
+        <li class="text-base text-sky-500 font-medium">Modifier</li>
       </ol>
     </nav>
   </div>
@@ -35,15 +33,15 @@
 
 <div class="px-6 pt-2 pb-14">
   <div class="px-6 py-6 lg:px-8 bg-white shadow-lg rounded-lg">
-    <h3 class="mb-4 text-xl font-medium text-gray-900">Add a new document</h3>
+    <h3 class="pb-4 text-xl font-medium text-gray-900 border-b-2 border-sky-500">Modifier le document</h3>
     <form class="space-y-6" action={{route('documents.update', $document->id)}} method="POST" enctype="multipart/form-data">
       @csrf
       @method("PUT")
       <div>
-        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">File name</label>
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nom du Fichier</label>
         <input type="text" name="name" id="name"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
-          placeholder="Enter the file name" value="{{ $document->name }}" required>
+          placeholder="Entrer le nom du ficher" value="{{ $document->name }}" required>
         @error('name')
             <span class="text-sm text-red-500">* {{$message}}</span>
         @enderror
@@ -62,9 +60,9 @@
                 </svg>
               </div>
               <div id="file-name" class="flex flex-col items-center">
-                <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span>
-                  or drag and drop</p>
-                <p class="text-xs text-gray-500 mx-auto">DOCS, PDF, PPTX (MAX. 5 MB)</p>
+                <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Cliquez pour télécharger</span>
+                  ou glisser et déposer</p>
+                <p class="text-xs text-gray-500 mx-auto">DOCX, PDF, PPTX, CSV, TXT, XLSX</p>
               </div>
             </div>
             <input id="dropzone-file" name="file" type="file" class="hidden" />
@@ -76,9 +74,9 @@
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <label for="cotegory_id" class="block mb-2 text-sm font-medium text-gray-900">Categories</label>
+          <label for="cotegory_id" class="block mb-2 text-sm font-medium text-gray-900">Catégories</label>
           <select id="countries" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-            <option disabled selected hidden>Choose a category</option>
+            <option disabled selected hidden>Choisissez une catégorie</option>
 
             {{-- categories list --}}
 
@@ -97,7 +95,7 @@
         @enderror
         </div>
         <div>
-          <label class="block mb-2 text-sm font-medium text-gray-900">Visibility</label>
+          <label class="block mb-2 text-sm font-medium text-gray-900">Visibilité</label>
           <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg sm:flex">
             <li class="w-full border-r rounded-l-lg border-gray-300 bg-gray-50 sm:border-b-0 sm:border-r">
               <div class="flex items-center pl-3">
@@ -116,7 +114,7 @@
 
       </div>
       <button type="submit"
-        class="w-full text-white my-6 bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Enregistre</button>
+        class="w-full text-white my-6 bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Enregistrer</button>
     </form>
   </div>
 </div>

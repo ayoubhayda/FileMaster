@@ -3,9 +3,13 @@
 {{-- List Categoyies --}}
 
 @section('category')
+<li>
+  <a href={{route('documents.index')}}
+    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Tout</a>
+</li>
 @foreach ($categories as $category)
 <li>
-  <a href={{route('documents.index', $category->id)}}
+  <a href={{route('categories.show', $category->id)}}
     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{$category->name}}</a>
 </li>
 @endforeach
@@ -19,7 +23,7 @@
     <nav>
       <ol class="flex items-center gap-2">
         <li class="text-base text-slate-700 font-medium">Documents /</li>
-        <li class="text-base text-sky-500 font-medium">All</li>
+        <li class="text-base text-sky-500 font-medium">{{$name}}</li>
       </ol>
     </nav>
   </div>
@@ -27,7 +31,7 @@
 
 {{-- data table --}}
 
-<div class="px-6 py-2">
+<div class="px-6 pt-2 pb-14">
   <div class="container justify-center mx-auto flex flex-col">
     <div class="overflow-x-auto shadow-md">
 
@@ -175,18 +179,18 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                       </svg>
-                      <h3 class="mb-5 text-lg font-normal text-gray-500">Are you sure you want to delete this product?
+                      <h3 class="mb-5 text-lg font-normal text-gray-500">Voulez-vous vraiment supprimer cette document?
                       </h3>
                       <form action="{{ route('documents.destroy', $document->id) }}" method="POST" class="flex justify-center">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                            Yes, I'm sure
+                          Supprimer
                         </button>
                     </form>                    
                       <button data-modal-hide="{{'delete-modal.'.$document->id}}" type="button"
-                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">No,
-                        cancel</button>
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
+                        Annuler</button>
                     </div>
                   </div>
                 </div>
@@ -201,5 +205,8 @@
       </div>
     </div>
   </div>
+  <footer class="card-footer is-centered mt-4">
+    {{ $documents->links() }}
+</footer>
 </div>
 @endsection

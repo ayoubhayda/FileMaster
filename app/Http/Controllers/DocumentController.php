@@ -19,9 +19,10 @@ class DocumentController extends Controller
     public function index()
     {
         $categories = Category::All();
-        $documents = Document::All();
+        $documents = Document::paginate(10);
         $search = '';
-        return view('documents.index', compact('categories', 'documents', 'search'));
+        $name = 'Tout';
+        return view('documents.index', compact('categories', 'documents', 'search','name'));
     }
 
     /**
@@ -110,9 +111,10 @@ class DocumentController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
+        $name = 'Tout';
         $documents = Document::where('name', 'like', '%' . $search . '%')->get();
         $categories = Category::all();
-        return view('documents.index', compact('documents', 'categories', 'search'));
+        return view('documents.index', compact('documents', 'categories', 'search','name'));
     }
 
 }

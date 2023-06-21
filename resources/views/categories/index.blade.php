@@ -5,17 +5,15 @@
 
 @section('category')
 <li>
-  <a href="#"
-    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
+  <a href={{route('documents.index')}}
+    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Tout</a>
 </li>
+@foreach ($categories as $category)
 <li>
-  <a href="#"
-    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Billing</a>
+  <a href={{route('categories.show', $category->id)}}
+    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{$category->name}}</a>
 </li>
-<li>
-  <a href="#"
-    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>
-</li>
+@endforeach
 @endsection
 
 {{-- content page --}}
@@ -33,7 +31,7 @@
 
 {{-- data table --}}
 
-<div class="px-6 py-2">
+<div class="px-6 pt-2 pb-14">
   <div class="container justify-center mx-auto flex flex-col">
     <div class="overflow-x-auto shadow-md">
 
@@ -48,7 +46,7 @@
             <form action="{{route('categories.search')}}" method="post" class="flex items-center basis-1/2">
                 @csrf
                 <div class="relative w-full">
-                <input type="text" id="table-search" name="search"
+                <input type="text" id="table-search" name="search" value="{{$search}}"
                   class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 pl-4 pr-14 py-2.5 w-full"
                   placeholder="Rechercher une catégorie" />
                 <button type="submit"
@@ -237,5 +235,8 @@
       </div>
     </div>
   </div>
+  <footer class="card-footer is-centered mt-4">
+    {{ $categories->links() }}
+</footer>
 </div>
 @endsection

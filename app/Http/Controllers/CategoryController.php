@@ -14,8 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $search = '';
         $categories = Category::paginate(10);
-        return view('categories.index', compact("categories"));
+        return view('categories.index', compact("categories","search"));
     }
 
     /**
@@ -41,7 +42,11 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $search = '';
+        $name = $category->name;
+        $documents = $category->documents()->paginate(10);
+        $categories = Category::all();
+        return view('documents.index', compact("documents","search","name","categories"));
     }
 
     /**
@@ -75,8 +80,9 @@ class CategoryController extends Controller
      */
     public function search(Request $request)
     {
-        $categories = Category::where('name','like', '%'.$request->input('search').'%')->get();
-        return view('categories.index', compact("categories") );
+        $search = $request->input('search');
+        $categories = Category::where('name','like', '%'.$search.'%')->get();
+        return view('categories.index', compact("categories","search") );
     }
 
 }
