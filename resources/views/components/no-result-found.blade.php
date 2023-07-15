@@ -1,0 +1,1 @@
+<img src="{{url('img/no_result_found.svg')}}" alt="No Result Found" class="w-30">
