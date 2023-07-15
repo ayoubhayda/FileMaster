@@ -96,28 +96,29 @@
                   </td>
                   <td class="px-6 py-4 text-sm text-gray-500">
 
-                    <button id="dropdownDelayButton{{$user->id}}" data-dropdown-toggle="dropdownDelay{{$user->id}}"
-                      data-dropdown-delay="500" data-dropdown-trigger="hover"
-                      class="text-white rounded bg-sky-500 hover:bg-sky-600 px-6 text-sm py-2.5 text-xs font-medium inline-flex leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600"
-                      type="button">Categories <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                      class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                      type="button">Dropdown button <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="m1 1 4 4 4-4" />
                       </svg></button>
                     <!-- Dropdown menu -->
-                    <div id="dropdownDelay{{$user->id}}"
-                      class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                        aria-labelledby="dropdownDelayButton{{$user->id}}">
+                    <div id="dropdown"
+                      class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                      <ul id="dropDown-cat" class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+                        
                         @foreach ($user->categories as $category)
-                        <li class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        <li class="block px-4 py-2 hover:bg-gray-100">
                           {{$category->name}}
                         </li>
                         @endforeach
                       </ul>
                     </div>
+
                   </td>
                   <td class="px-6 py-4">
-                    <a href="{{route('users.edit', $user)}}">
+                    <a class="flex justify-center" href="{{route('users.edit', $user)}}">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-400" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2

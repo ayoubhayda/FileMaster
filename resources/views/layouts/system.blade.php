@@ -32,7 +32,7 @@
                     </a>
                 </div>
             </header>
-            <div class="h-full px-3 py-10 overflow-y-auto bg-gray-800">
+            <div class="h-full px-3 py-10 mb-10 overflow-y-auto bg-gray-800">
                 <ul class="space-y-2 font-medium">
                     <h3 class="mb-4 ml-2 text-sm font-medium text-gray-400">MENU</h3>
                     <li>
@@ -194,9 +194,9 @@
             </div>
             <footer class="bg-white text-center lg:text-left">
                 <hr>
-                <div class="p-4 text-center text-neutral-700">
+                <div class="p-4 text-center text-neutral-700 text-sm">
                   © 2023 Copyright:
-                  <a class="text-neutral-800" href="https://tailwind-elements.com/">Ofppt, F.Master V 1.00</a>
+                  <a class="text-neutral-700 text-sm" href="https://tailwind-elements.com/">Ofppt - F.Master V 1.00</a>
                 </div>
             </footer> 
         </div>
