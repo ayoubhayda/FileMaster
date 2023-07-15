@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserStore;
 use App\Http\Requests\UserUpdate;
+use App\Models\Category;
 use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
@@ -16,7 +17,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::where('role','=',1)->paginate(10);
-        return view('users.index', compact('users'));
+        $categories = Category::all();
+        return view('users.index', compact('users', 'categories'));
     }
 
     /**
@@ -24,7 +26,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $categories = Category::all();
+        return view('users.create', compact('categories'));
     }
 
     /**
@@ -34,6 +37,8 @@ class UserController extends Controller
     {
         $request->validated();
         $user = User::create($request->all());
+        $categories = $request->input('categories');
+        $user->categories()->attach($categories);
         event(new Registered($user));
         return redirect()->route('users.index');
     }
@@ -51,7 +56,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $categories = Category::all();
+        return view('users.edit', compact('user','categories'));
     }
 
     /**

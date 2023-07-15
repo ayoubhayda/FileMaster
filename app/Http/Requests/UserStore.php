@@ -26,7 +26,8 @@ class UserStore extends FormRequest
             [
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user)],
-                'password' => ['required', 'confirmed', 'min:8']
+                'password' => ['required', 'confirmed', 'min:8'],
+                'categories' => ['required', 'array']
             ]
         ;
     }

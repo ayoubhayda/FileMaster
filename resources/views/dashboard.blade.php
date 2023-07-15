@@ -65,7 +65,7 @@
                     </p>
                 </div>
                 <div class="p-6 pt-0">
-                    <a href="{{ route('documents.index') }}" class="inline-block">
+                    <a href="#" class="inline-block">
                         <button
                             class="flex select-none items-center gap-3 rounded-lg border-2 border-sky-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-sky-500 transition-all hover:opacity-75 hover:bg-sky-500 hover:text-white focus:ring focus:ring-Sky-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                             type="button" data-ripple-dark="true">

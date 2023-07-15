@@ -5,13 +5,15 @@
 
 @section('category')
 <li>
-  <a href={{route('documents.index')}}
-    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Tout</a>
+  <x-dropdown-item :href="route('documents.index')" :active="request()->routeIs('documents.index')">
+    {{ __('Tout') }}
+  </x-dropdown-item>
 </li>
 @foreach ($categories as $category)
 <li>
-  <a href={{route('categories.show', $category->id)}}
-    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{$category->name}}</a>
+  <x-dropdown-item :href="route('categories.show', $category->id)" :active="request()->routeIs('categories.show', $category->id)">
+    {{$category->name}}
+  </x-dropdown-item>
 </li>
 @endforeach
 @endsection
@@ -82,25 +84,25 @@
             <thead class="bg-gray-50 border-b-2 border-sky-500">
               <tr>
                 <th class="px-6 py-2 text-xs text-gray-500">
-                  ID
+                  #
                 </th>
                 <th class="px-6 py-2 text-xs text-gray-500">
-                  Name
+                  Nom de fichier
                 </th>
                 <th class="px-6 py-2 text-xs text-gray-500">
-                  Category
+                  Catégorie
                 </th>
                 <th class="px-6 py-2 text-xs text-gray-500">
-                  Visibility
+                  Visibilité
                 </th>
                 <th class="px-6 py-2 text-xs text-gray-500">
-                  Download
+                  Télécharger
                 </th>
                 <th class="px-6 py-2 text-xs text-gray-500">
-                  Edit
+                  Modifier
                 </th>
                 <th class="px-6 py-2 text-xs text-gray-500">
-                  Delete
+                  Supprimer
                 </th>
               </tr>
             </thead>
@@ -108,6 +110,17 @@
 
               {{-- Documents List --}}
 
+              @if (count($documents) === 0)
+              <tr class="whitespace-nowrap py-6">
+                <td colspan="7" class="px-6 py-14">
+                  <div class="flex flex-col items-center">
+                    <x-no-result-found/>
+                    <p class="text-md mt-6 mb-2 font-bold text-gray-900">Aucun document trouvé</p>
+                    <p class="text-sm text-gray-500">Désolé, aucun document n'a été trouvé</p>
+                  </div>
+                </td>
+              </tr>
+              @else
               @foreach ($documents as $document)
               <tr class="whitespace-nowrap">
                 <td class="px-6 py-4 text-sm text-gray-500">
@@ -122,7 +135,7 @@
                   <div class="text-sm text-gray-500">{{$document->category->name}}</div>
                 </td>
                 <td class="px-6 py-4 text-sm text-gray-500 text-center">
-                  {{$document->visibility}}
+                  {{$document->visibility == 1 ? 'Visible' : 'Non Visible'}}
                 </td>
                 <td class="px-6 py-4">
                   <a href={{url('files/'.$document->file)}} download
@@ -146,7 +159,8 @@
                   </a>
                 </td>
                 <td class="px-6 py-4 flex justify-center ">
-                  <button data-modal-target="{{'delete-modal.'.$document->id}}" data-modal-toggle="{{'delete-modal.'.$document->id}}"
+                  <button data-modal-target="{{'delete-modal.'.$document->id}}"
+                    data-modal-toggle="{{'delete-modal.'.$document->id}}"
                     class="text-red-400 hover:text-red-500 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24"
                       stroke="currentColor">
@@ -172,7 +186,7 @@
                           d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                           clip-rule="evenodd"></path>
                       </svg>
-                      <span class="sr-only">Close modal</span>
+                      <span class="sr-only">Fermer</span>
                     </button>
                     <div class="p-6 text-center">
                       <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14" fill="none"
@@ -182,10 +196,12 @@
                       </svg>
                       <h3 class="mb-5 text-lg font-normal text-gray-500">Voulez-vous vraiment supprimer cette document?
                       </h3>
-                      <form action="{{ route('documents.destroy', $document->id) }}" method="POST" class="flex justify-center">
+                      <form action="{{ route('documents.destroy', $document->id) }}" method="POST"
+                        class="flex justify-center">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        <button type="submit"
+                          class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                           Supprimer
                         </button>
                     </form>
@@ -200,6 +216,8 @@
               {{-- END DELETE MODEL --}}
 
               @endforeach
+              @endif
+
             </tbody>
           </table>
         </div>
@@ -208,6 +226,6 @@
   </div>
   <footer class="card-footer is-centered mt-4">
     {{ $documents->links() }}
-</footer>
+  </footer>
 </div>
 @endsection
