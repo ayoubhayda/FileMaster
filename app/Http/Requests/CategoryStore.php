@@ -27,10 +27,4 @@ class CategoryStore extends FormRequest
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            'name.unique' => "Cette catégorie existe déjà",
-        ];
-    }
 }
