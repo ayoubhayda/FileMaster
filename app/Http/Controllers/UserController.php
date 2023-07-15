@@ -67,6 +67,8 @@ class UserController extends Controller
     {
         $request->validated();
         $user->update($request->all());
+        $categories = $request->input('categories');
+        $user->categories()->sync($categories);
         return redirect()->route('users.index');
 
     }
