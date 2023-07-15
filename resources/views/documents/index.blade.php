@@ -1,4 +1,5 @@
 @extends('layouts.system')
+@section('title', 'Documents')
 
 {{-- List Categoyies --}}
 

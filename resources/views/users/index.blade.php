@@ -78,8 +78,8 @@
                   <td colspan="5" class="px-6 py-14">
                     <div class="flex flex-col items-center">
                       <x-no-result-found />
-                      <p class="text-md mt-6 mb-2 font-bold text-gray-900">Aucun users trouvé</p>
-                      <p class="text-sm text-gray-500">Désolé, aucun users n'a été trouvé</p>
+                      <p class="text-md mt-6 mb-2 font-bold text-gray-900">Aucun utilisateurs trouvé</p>
+                      <p class="text-sm text-gray-500">Désolé, aucun utilisateurs n'a été trouvé</p>
                     </div>
                   </td>
                 </tr>
