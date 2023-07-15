@@ -32,14 +32,14 @@
                     </a>
                 </div>
             </header>
-            <div class="h-full px-3 py-10 overflow-y-auto bg-gray-50 dark:bg-[#1C2434]">
+            <div class="h-full px-3 py-10 overflow-y-auto bg-gray-800">
                 <ul class="space-y-2 font-medium">
                     <h3 class="mb-4 ml-2 text-sm font-medium text-gray-400">MENU</h3>
                     <li>
                         <a href="{{ route('dashboard') }}"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-6 h-6 text-gray-100 transition duration-75 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
+                                class="w-6 h-6 transition duration-75 text-gray-300 group-hover:text-gray-900 group-hover:text-white">
                                 <path
                                     d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
                                 <path
@@ -50,10 +50,10 @@
                     </li>
                     <li>
                         <button type="button"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            class="flex items-center w-full p-2 transition duration-75 rounded-lg group hover:bg-gray-100 text-white hover:bg-gray-700"
                             aria-controls="dropdownCat" data-collapse-toggle="dropdownCat">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="flex-shrink-0 w-6 h-6 text-gray-100 transition duration-75 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white">
+                                class="flex-shrink-0 w-6 h-6 transition duration-75 group-hover:text-gray-900 text-gray-300 group-hover:text-white">
                                 <path
                                     d="M19.906 9c.382 0 .749.057 1.094.162V9a3 3 0 00-3-3h-3.879a.75.75 0 01-.53-.22L11.47 3.66A2.25 2.25 0 009.879 3H6a3 3 0 00-3 3v3.162A3.756 3.756 0 014.094 9h15.812zM4.094 10.5a2.25 2.25 0 00-2.227 2.568l.857 6A2.25 2.25 0 004.951 21H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-2.227-2.568H4.094z" />
                             </svg>
@@ -74,7 +74,7 @@
                         <x-sidebar-link :href="route('categories.index')"
                             :active="request()->routeIs('categories.index')">
                             <svg aria-hidden="true"
-                                class="flex-shrink-0 w-6 h-6 text-gray-100 transition duration-75 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white"
+                                class="flex-shrink-0 w-6 h-6 transition duration-75 text-gray-300 group-hover:text-gray-900 group-hover:text-white"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
