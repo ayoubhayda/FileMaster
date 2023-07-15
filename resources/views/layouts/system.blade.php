@@ -51,7 +51,7 @@
                     <li>
                         <button type="button"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                            aria-controls="dropdownCat" data-collapse-toggle="dropdownCat">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="flex-shrink-0 w-6 h-6 text-gray-100 transition duration-75 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white">
                                 <path
@@ -65,7 +65,7 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </button>
-                        <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                        <ul id="dropdownCat" class="py-2 space-y-2">
                             @yield('category')
                         </ul>
 
@@ -202,7 +202,7 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-    <script src="{{url('js/app.js')}}"></script>
+    <script src="{{url('script/app.js')}}"></script>
 </body>
 
 </html>
