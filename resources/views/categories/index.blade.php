@@ -5,13 +5,15 @@
 
 @section('category')
 <li>
-  <a href={{route('documents.index')}}
-    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Tout</a>
+  <x-dropdown-item :href="route('documents.index')" :active="request()->routeIs('documents.index')">
+    {{ __('Tout') }}
+  </x-dropdown-item>
 </li>
 @foreach ($categories as $category)
 <li>
-  <a href={{route('categories.show', $category->id)}}
-    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{$category->name}}</a>
+  <x-dropdown-item :href="route('categories.show', $category->id)" :active="request()->routeIs('categories.show', $category->id)">
+    {{$category->name}}
+  </x-dropdown-item>
 </li>
 @endforeach
 @endsection
