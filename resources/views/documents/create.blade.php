@@ -1,5 +1,5 @@
 @extends('layouts.system')
-
+@section('title', 'Ajouter')
 {{-- sidebar List Categoyies --}}
 
 @section('category')
@@ -80,7 +80,7 @@
             {{-- categories list --}}
 
             @foreach ($categories as $category)
-              
+
               @if ( old('category_id') == $category->id)
                 <option value="{{$category->id}}" selected>{{$category->name}}</option>
               @else
@@ -109,7 +109,7 @@
               </div>
             </li>
           </ul>
-        </div>  
+        </div>
         @error('visibility')
             <span class="text-sm text-red-500">* {{$message}}</span>
         @enderror

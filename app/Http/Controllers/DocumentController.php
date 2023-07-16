@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\DocumentStore;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\DocumentUpdate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
@@ -18,8 +20,9 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $categories = Category::All();
-        $documents = Document::paginate(10);
+        Auth::user()->role === 0 ? $categories = Category::All() : $categories = Auth::user()->categories;
+
+        $documents = Document::whereIn('category_id', $categories->pluck('id'))->paginate(10);
         $search = '';
         $name = 'Tout';
         return view('documents.index', compact('categories', 'documents', 'search','name'));
@@ -30,6 +33,7 @@ class DocumentController extends Controller
      */
     public function create()
     {
+        Gate::authorize('before');
         $categories = Category::all();
         return view('documents.create', compact('categories'));
     }
@@ -39,6 +43,7 @@ class DocumentController extends Controller
      */
     public function store(DocumentStore $request)
     {
+        Gate::authorize('before');
         $validatedData = $request->validated();
         $slug = Str::slug($validatedData['name'], '-') . '.' . $validatedData['file']->extension();
         $validatedData['file']->move(public_path('files'), $slug);
@@ -60,6 +65,7 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
+        Gate::authorize('before');
         $categories = Category::All();
         return view('documents.edit', compact('categories', 'document'));
     }
@@ -69,12 +75,12 @@ class DocumentController extends Controller
      */
     public function update(DocumentUpdate $request, Document $document)
     {
-
+        Gate::authorize('before');
         $validatedData = $request->validated();
 
         if ($request->hasFile('file')) {
             $slug = Str::slug($validatedData['name'], '-') . '.' . $validatedData['file']->extension();
-        
+
             // Delete the old file if it exists
             if ($document->file) {
                 $filePath = public_path('files/' . $document->file);
@@ -82,12 +88,12 @@ class DocumentController extends Controller
                     File::delete($filePath);
                 }
             }
-        
+
             // Store the new file
             $validatedData['file']->move(public_path('files'), $slug);
             $validatedData['file'] = $slug;
         }
-        
+
 
         $document->update($validatedData);
 
@@ -99,13 +105,14 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
+        Gate::authorize('before');
         $document->delete();
         $filePath = public_path('files/' . $document->file);
         if (File::exists($filePath)) {
             File::delete($filePath);
         }
         return redirect()->route('documents.index');
-    }    
+    }
 
 
     public function search(Request $request)

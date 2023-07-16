@@ -1,4 +1,5 @@
 @extends('layouts.system')
+@section('title', 'Modifier')
 
 {{-- sidebar List Categoyies --}}
 
@@ -81,13 +82,13 @@
             {{-- categories list --}}
 
             @foreach ($categories as $category)
-              
+
               @if ( $document->category_id == $category->id)
               <option value="{{$category->id}}" selected>{{$category->name}}</option>
               @else
               <option value="{{$category->id}}">{{$category->name}}</option>
               @endif
-              
+
             @endforeach
           </select>
           @error('category')
@@ -110,7 +111,7 @@
               </div>
             </li>
           </ul>
-        </div>  
+        </div>
 
       </div>
       <button type="submit"

@@ -65,15 +65,16 @@
             </form>
 
             {{-- btn add --}}
-
-            <a href="{{route('documents.create')}}"
-              class="flex items-center rounded bg-sky-500 hover:bg-sky-600 px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
-                <path fill-rule="evenodd"
-                  d="M19.5 21a3 3 0 003-3V9a3 3 0 00-3-3h-5.379a.75.75 0 01-.53-.22L11.47 3.66A2.25 2.25 0 009.879 3H4.5a3 3 0 00-3 3v12a3 3 0 003 3h15zm-6.75-10.5a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V10.5z"
-                  clip-rule="evenodd" />
-              </svg>
-            </a>
+            @if (Auth::user()->role === 0)
+                <a href="{{route('documents.create')}}"
+                    class="flex items-center rounded bg-sky-500 hover:bg-sky-600 px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                    <path fill-rule="evenodd"
+                        d="M19.5 21a3 3 0 003-3V9a3 3 0 00-3-3h-5.379a.75.75 0 01-.53-.22L11.47 3.66A2.25 2.25 0 009.879 3H4.5a3 3 0 00-3 3v12a3 3 0 003 3h15zm-6.75-10.5a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V10.5z"
+                        clip-rule="evenodd" />
+                    </svg>
+                </a>
+            @endif
           </div>
         </div>
         <div class="overflow-hidden">
@@ -87,23 +88,27 @@
                   #
                 </th>
                 <th class="px-6 py-2 text-xs text-gray-500">
-                  Nom de fichier
+                  Nom du fichier
                 </th>
                 <th class="px-6 py-2 text-xs text-gray-500">
                   Catégorie
                 </th>
-                <th class="px-6 py-2 text-xs text-gray-500">
-                  Visibilité
-                </th>
+                @if (Auth::user()->role === 0)
+                    <th class="px-6 py-2 text-xs text-gray-500">
+                        Visibilité
+                    </th>
+                @endif
                 <th class="px-6 py-2 text-xs text-gray-500">
                   Télécharger
                 </th>
-                <th class="px-6 py-2 text-xs text-gray-500">
-                  Modifier
-                </th>
-                <th class="px-6 py-2 text-xs text-gray-500">
-                  Supprimer
-                </th>
+                @if (Auth::user()->role === 0)
+                    <th class="px-6 py-2 text-xs text-gray-500">
+                        Modifier
+                    </th>
+                    <th class="px-6 py-2 text-xs text-gray-500">
+                        Supprimer
+                    </th>
+                @endif
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-300">
@@ -134,9 +139,11 @@
                 <td class="px-6 py-4">
                   <div class="text-sm text-gray-500">{{$document->category->name}}</div>
                 </td>
-                <td class="px-6 py-4 text-sm text-gray-500 text-center">
-                  {{$document->visibility == 1 ? 'Visible' : 'Non Visible'}}
-                </td>
+                @if (Auth::user()->role === 0)
+                    <td class="px-6 py-4 text-sm text-gray-500 text-center">
+                    {{$document->visibility == 1 ? 'Visible' : 'Non Visible'}}
+                    </td>
+                @endif
                 <td class="px-6 py-4">
                   <a href={{url('files/'.$document->file)}} download
                     class="flex justify-center text-green-600 hover:text-green-700 transition">
@@ -147,28 +154,30 @@
                     </svg>
                   </a>
                 </td>
-                <td class="px-6 py-4">
-                  <a href={{route('documents.edit', $document->id)}}
-                    class="flex justify-center text-blue-400 hover:text-blue-500 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2
-                            2 0 112.828
-                            2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-                  </a>
-                </td>
-                <td class="px-6 py-4 flex justify-center ">
-                  <button data-modal-target="{{'delete-modal.'.$document->id}}"
-                    data-modal-toggle="{{'delete-modal.'.$document->id}}"
-                    class="text-red-400 hover:text-red-500 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5
-                            4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                  </button>
-                </td>
+                @if (Auth::user()->role === 0)
+                    <td class="px-6 py-4">
+                        <a href={{route('documents.edit', $document->id)}}
+                        class="flex justify-center text-blue-400 hover:text-blue-500 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2
+                                2 0 112.828
+                                2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        </a>
+                    </td>
+                    <td class="px-6 py-4 flex justify-center ">
+                        <button data-modal-target="{{'delete-modal.'.$document->id}}"
+                        data-modal-toggle="{{'delete-modal.'.$document->id}}"
+                        class="text-red-400 hover:text-red-500 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5
+                                4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        </button>
+                    </td>
+                @endif
               </tr>
 
               {{-- DELETE MODEL --}}
