@@ -19,19 +19,38 @@ use App\Http\Controllers\DocumentController;
 
 Route::get('/', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:0'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+
+//-------------------------------------*-admin routes-*---------------------------------
+
+Route::middleware(['auth', 'role:0'])->group(function () {
+    
+    //--------users routes--------
+    Route::resource('users', UserController::class);
+    Route::post('/users/search', [UserController::class, 'search'])->name('users.search');
+
+    //--------categories routes--------
+    Route::resource('categories', CategoryController::class);
+    Route::post('/categories/search', [CategoryController::class, 'search'])->name('categories.search');
+
+});
+
+
+
+//-------------------------------------*-admin and user routes-*---------------------------------
+
+Route::middleware(['auth', 'role:0,1'])->group(function () {
+
+    //--------profile routes--------
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::resource('documents', DocumentController::class);
-Route::post('documents/search', [DocumentController::class, 'search'])->name('documents.search');
-Route::resource('categories', CategoryController::class);
-Route::resource('users', UserController::class);
-Route::post('/categories/search', [CategoryController::class, 'search'])->name('categories.search');
-Route::post('/users/search', [UserController::class, 'search'])->name('users.search');
+    //--------documents routes--------
+    Route::resource('documents', DocumentController::class);
+    Route::post('documents/search', [DocumentController::class, 'search'])->name('documents.search');
+    Route::resource('categories', CategoryController::class)->only('show');
+});
 
 require __DIR__.'/auth.php';

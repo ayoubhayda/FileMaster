@@ -21,9 +21,9 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-slate-100">
+    <div class="bg-slate-100">
         <aside id="sidebar-multi-level-sidebar"
-            class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+            class="absolute top-0 left-0 z-40 w-64 h-full bg-gray-800 transition-transform -translate-x-full sm:translate-x-0"
             aria-label="Sidebar">
             <header class="bg-gray-800 border-b-2 border-gray-700 py-4">
                 <div class="max-w-7xl mx-auto py-2 sm:px-6 lg:px-6 h-8">
@@ -32,8 +32,8 @@
                     </a>
                 </div>
             </header>
-            <div class="h-full px-3 py-10 mb-10 overflow-y-auto bg-gray-800">
-                <ul class="space-y-2 font-medium">
+            <div class="h-full px-3 py-10 pb-14 overflow-y-auto bg-gray-800">
+                <ul class="space-y-2 font-medium pb-14">
                     <h3 class="mb-4 ml-2 text-sm font-medium text-gray-400">MENU</h3>
                     @if (Auth::user()->role === 0)
                         <li>
