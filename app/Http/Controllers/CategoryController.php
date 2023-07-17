@@ -54,7 +54,7 @@ class CategoryController extends Controller
         $categories = Auth::user()->role === 0 ? Category::All() : Auth::user()->categories;
         $search = '';
         $name = $category->name;
-        $documents = $category->documents()->paginate(10);
+        $documents = Auth::user()->role === 0 ? $category->documents()->paginate(10) : $category->documents()->where('visibility','=',1)->paginate(10);
 
         // Pass the active category ID to the view
         return view('documents.index', compact('documents', 'search', 'name', 'categories'))->with('activeCategory', $category->id);

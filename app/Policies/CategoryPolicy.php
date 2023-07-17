@@ -13,7 +13,7 @@ class CategoryPolicy
         if ($user->role === 0) {
             return true;
         }
-        return Response::deny("CETTE ACTION N'EST PAS AUTORISEE.");
+        return null;
     }
     /**
      * Determine whether the user can view any models.

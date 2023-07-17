@@ -27,7 +27,7 @@ class DocumentController extends Controller
         $categories = Auth::user()->role === 0 ? Category::all() : Auth::user()->categories;
 
         // Retrieve the documents based on the selected category or all categories.
-        $documents = Document::whereIn('category_id', $categories->pluck('id'))->paginate(10);
+        $documents = Auth::user()->role === 0 ? Document::paginate(10) : Document::where('visibility','=',1)->whereIn('category_id', $categories->pluck('id'))->paginate(10);
 
         // Set default values for the dropdown.
         $search = '';
