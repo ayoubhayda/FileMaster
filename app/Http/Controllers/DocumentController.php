@@ -20,13 +20,22 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        Auth::user()->role === 0 ? $categories = Category::All() : $categories = Auth::user()->categories;
+        // Check if the activeCategory is available in the request, otherwise set a default value of null.
+        $activeCategory = request()->route('category') ?? null;
 
+        // Retrieve the categories based on the user's role.
+        $categories = Auth::user()->role === 0 ? Category::all() : Auth::user()->categories;
+
+        // Retrieve the documents based on the selected category or all categories.
         $documents = Document::whereIn('category_id', $categories->pluck('id'))->paginate(10);
+
+        // Set default values for the dropdown.
         $search = '';
         $name = 'Tout';
-        return view('documents.index', compact('categories', 'documents', 'search','name'));
+
+        return view('documents.index', compact('categories', 'documents', 'search', 'name', 'activeCategory'));
     }
+
 
     /**
      * Show the form for creating a new resource.

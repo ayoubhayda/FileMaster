@@ -17,9 +17,13 @@ class CategoryController extends Controller
     public function index()
     {
         Gate::authorize('before', Category::class);
+
+        // Check if the activeCategory is available in the request, otherwise set a default value of null.
+        $activeCategory = request()->route('category') ?? null;
+
         $search = '';
         $categories = Category::paginate(10);
-        return view('categories.index', compact("categories","search"));
+        return view('categories.index', compact("categories","search",'activeCategory'));
     }
 
     /**
@@ -47,12 +51,15 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         Gate::authorize('view', $category);
-        Auth::user()->role === 0 ? $categories = Category::All() : $categories = Auth::user()->categories;
+        $categories = Auth::user()->role === 0 ? Category::All() : Auth::user()->categories;
         $search = '';
         $name = $category->name;
         $documents = $category->documents()->paginate(10);
-        return view('documents.index', compact("documents","search","name","categories"));
+
+        // Pass the active category ID to the view
+        return view('documents.index', compact('documents', 'search', 'name', 'categories'))->with('activeCategory', $category->id);
     }
+
 
     /**
      * Show the form for editing the specified resource.

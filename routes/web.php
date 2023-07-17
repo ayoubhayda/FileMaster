@@ -24,24 +24,21 @@ Route::get('/', function () {
 
 //-------------------------------------*-admin routes-*---------------------------------
 
+//--------users routes--------
 Route::middleware(['auth', 'role:0'])->group(function () {
-    
-    //--------users routes--------
     Route::resource('users', UserController::class);
     Route::post('/users/search', [UserController::class, 'search'])->name('users.search');
-
-    //--------categories routes--------
-    Route::resource('categories', CategoryController::class);
-    Route::post('/categories/search', [CategoryController::class, 'search'])->name('categories.search');
-
 });
 
-
+//--------categories routes--------
+Route::middleware(['auth', 'role:0'])->group(function () {
+    Route::resource('categories', CategoryController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::post('/categories/search', [CategoryController::class, 'search'])->name('categories.search');
+});
 
 //-------------------------------------*-admin and user routes-*---------------------------------
 
 Route::middleware(['auth', 'role:0,1'])->group(function () {
-
     //--------profile routes--------
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -50,7 +47,12 @@ Route::middleware(['auth', 'role:0,1'])->group(function () {
     //--------documents routes--------
     Route::resource('documents', DocumentController::class);
     Route::post('documents/search', [DocumentController::class, 'search'])->name('documents.search');
+});
+
+// Categories show route should not be inside the admin and user routes group
+Route::middleware(['auth', 'role:0,1'])->group(function () {
     Route::resource('categories', CategoryController::class)->only('show');
 });
+
 
 require __DIR__.'/auth.php';

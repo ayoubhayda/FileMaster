@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $route = Auth::user() === 0 ? '/':'documents';
+        $route = Auth::user()->role === 0 ? '/' :'documents';
 
         return redirect($route);
     }
@@ -45,10 +45,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        $route = Auth::user() === 0 ? '/':'documents';
-
-        return redirect($route);
-
-        return redirect('/');
+        return redirect()->route('login');
     }
 }

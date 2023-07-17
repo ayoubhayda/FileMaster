@@ -16,10 +16,11 @@ class DatabaseSeeder extends Seeder
         Category::factory()->count(20)->create();
         // \App\Models\User::factory(10)->create();
 
-        /* \App\Models\User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => 'admin2023'
-        ]); */
+        // \App\Models\User::factory()->create([
+        //     'name' => 'user',
+        //     'email' => 'user@gmail.com',
+        //     'password' => 'user2023',
+        //     'role' => 1
+        // ]);
     }
 }

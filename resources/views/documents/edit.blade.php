@@ -76,7 +76,7 @@
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label for="cotegory_id" class="block mb-2 text-sm font-medium text-gray-900">Catégories</label>
-          <select id="countries" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          <select id="countries" name="category_id" class="bg-gray-50 overflow-y-auto border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
             <option disabled selected hidden>Choisissez une catégorie</option>
 
             {{-- categories list --}}

@@ -11,12 +11,13 @@
 </li>
 @foreach ($categories as $category)
 <li>
-  <x-dropdown-item :href="route('categories.show', $category->id)" :active="request()->routeIs('categories.show', $category->id)">
+  <x-dropdown-item :href="route('categories.show', $category->id)" :active="$activeCategory === $category->id">
     {{$category->name}}
   </x-dropdown-item>
 </li>
 @endforeach
 @endsection
+
 
 {{-- content page --}}
 @section('content')
