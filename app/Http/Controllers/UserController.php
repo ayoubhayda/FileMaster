@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        Gate::authorize('before');
+        Gate::authorize('before', User::class);
         $users = User::where('role','=',1)->paginate(10);
         $categories = Category::all();
         return view('users.index', compact('users', 'categories'));
@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        Gate::authorize('before');
+        Gate::authorize('before', User::class);
         $categories = Category::all();
         return view('users.create', compact('categories'));
     }
@@ -38,7 +38,7 @@ class UserController extends Controller
      */
     public function store(UserStore $request)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', User::class);
         $request->validated();
         $user = User::create($request->all());
         $categories = $request->input('categories');
@@ -60,7 +60,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', User::class);
         $categories = Category::all();
         return view('users.edit', compact('user','categories'));
     }
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function update(UserUpdate $request,User $user)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', User::class);
         $request->validated();
         $user->update($request->all());
         $categories = $request->input('categories');
@@ -84,7 +84,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', User::class);
         $user->delete();
         return redirect()->route('users.index');
     }
@@ -95,7 +95,7 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', User::class);
         $users = User::where('name','like', '%'.$request->input('search').'%')->get();
         return view('users.index', compact("users") );
     }

@@ -12,7 +12,7 @@ class UserPolicy
         if ($user->role === 0) {
             return true;
         }
-        return null;
+        return Response::deny("CETTE ACTION N'EST PAS AUTORISEE.");
     }
     /**
      * Determine whether the user can view any models.

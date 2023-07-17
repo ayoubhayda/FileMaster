@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        Gate::authorize('before');
+        Gate::authorize('before', Category::class);
         $search = '';
         $categories = Category::paginate(10);
         return view('categories.index', compact("categories","search"));
@@ -35,7 +35,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryStore $request)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', Category::class);
         $request->validated();
         Category::create($request->all());
         return redirect()->route('categories.index');
@@ -67,7 +67,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryUpdate $request, Category $category)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', Category::class);
         $request->validated();
         $category->update($request->all());
         return redirect()->route('categories.index');
@@ -78,7 +78,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', Category::class);
         $category->delete();
         return redirect()->route('categories.index');
     }
@@ -87,7 +87,7 @@ class CategoryController extends Controller
      */
     public function search(Request $request)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', Category::class);
         $search = $request->input('search');
         $categories = Category::where('name','like', '%'.$search.'%')->get();
         return view('categories.index', compact("categories","search") );

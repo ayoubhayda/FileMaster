@@ -33,7 +33,7 @@ class DocumentController extends Controller
      */
     public function create()
     {
-        Gate::authorize('before');
+        Gate::authorize('before', Document::class);
         $categories = Category::all();
         return view('documents.create', compact('categories'));
     }
@@ -43,7 +43,7 @@ class DocumentController extends Controller
      */
     public function store(DocumentStore $request)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', Document::class);
         $validatedData = $request->validated();
         $slug = Str::slug($validatedData['name'], '-') . '.' . $validatedData['file']->extension();
         $validatedData['file']->move(public_path('files'), $slug);
@@ -65,7 +65,7 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', Document::class);
         $categories = Category::All();
         return view('documents.edit', compact('categories', 'document'));
     }
@@ -75,7 +75,7 @@ class DocumentController extends Controller
      */
     public function update(DocumentUpdate $request, Document $document)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', Document::class);
         $validatedData = $request->validated();
 
         if ($request->hasFile('file')) {
@@ -105,7 +105,7 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-        Gate::authorize('before');
+        Gate::authorize('before', Document::class);
         $document->delete();
         $filePath = public_path('files/' . $document->file);
         if (File::exists($filePath)) {
