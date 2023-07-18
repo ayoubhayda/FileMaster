@@ -94,10 +94,12 @@ class CategoryController extends Controller
      */
     public function search(Request $request)
     {
+        $activeCategory = request()->route('category') ?? null;
+
         Gate::authorize('before', Category::class);
         $search = $request->input('search');
-        $categories = Category::where('name','like', '%'.$search.'%')->get();
-        return view('categories.index', compact("categories","search") );
+        $categories = Category::where('name','like', '%'.$search.'%')->paginate(10);
+        return view('categories.index', compact("categories","search",'activeCategory') );
     }
 
 }

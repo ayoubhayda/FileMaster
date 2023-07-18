@@ -52,8 +52,8 @@
 
                     <!-- Dropdown menu -->
                     <div id="dropdownDefaultCheckbox"
-                        class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow">
-                        <ul class="p-3 space-y-3 text-sm text-gray-700" aria-labelledby="dropdownCheckboxButton">
+                        class="z-10 hidden w-48 overflow-y-auto max-h-44 bg-white divide-y divide-gray-100 rounded-lg shadow">
+                        <ul class="p-3 space-y-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownCheckboxButton">
                             @foreach ($categories as $category)
                             <li>
                                 <div class="flex items-center">

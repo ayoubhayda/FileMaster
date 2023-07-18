@@ -126,11 +126,19 @@ class DocumentController extends Controller
 
     public function search(Request $request)
     {
+        $activeCategory = request()->route('category') ?? null;
+
         $search = $request->input('search');
         $name = 'Tout';
-        $documents = Document::where('name', 'like', '%' . $search . '%')->get();
-        $categories = Category::all();
-        return view('documents.index', compact('documents', 'categories', 'search','name'));
+        $categories = Auth::user()->role === 0 ? Category::all() : Auth::user()->categories;
+        $documents = Auth::user()->role === 0 
+    ? Document::where('name', 'like', '%' . $search . '%')->paginate(10) 
+    : Document::where('visibility', '=', 1)
+        ->whereIn('category_id', $categories->pluck('id'))
+        ->where('name', 'like', '%' . $search . '%')
+        ->paginate(10);
+
+        return view('documents.index', compact('documents', 'categories', 'search','name', 'activeCategory'));
     }
 
 }

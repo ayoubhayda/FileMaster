@@ -22,7 +22,7 @@
               <form action="{{route('users.search')}}" method="post" class="flex items-center basis-1/2">
                 @csrf
                 <div class="relative w-full">
-                  <input type="text" id="table-search" name="search"
+                  <input type="text" id="table-search" name="search" value="{{$search}}"
                     class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 pl-4 pr-14 py-2.5 w-full"
                     placeholder="Saisissez le nom de l'utilisateur" />
                   <button type="submit"

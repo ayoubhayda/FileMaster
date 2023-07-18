@@ -27,9 +27,7 @@
             aria-label="Sidebar">
             <header class="bg-gray-800 border-b-2 border-gray-700 py-4">
                 <div class="max-w-7xl mx-auto py-2 sm:px-6 lg:px-6 h-8">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo-2 class="block h-16 w-auto fill-current text-gray-800" />
-                    </a>
+                    <x-application-logo-2 class="block h-16 w-auto fill-current text-gray-800" />
                 </div>
             </header>
             <div class="h-full px-3 py-10 pb-14 overflow-y-auto bg-gray-800">

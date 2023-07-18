@@ -19,8 +19,9 @@ class UserController extends Controller
     {
         Gate::authorize('before', User::class);
         $users = User::where('role','=',1)->paginate(10);
+        $search = '';
         $categories = Category::all();
-        return view('users.index', compact('users', 'categories'));
+        return view('users.index', compact('users', 'categories','search'));
     }
 
     /**
@@ -96,7 +97,8 @@ class UserController extends Controller
     public function search(Request $request)
     {
         Gate::authorize('before', User::class);
-        $users = User::where('name','like', '%'.$request->input('search').'%')->get();
-        return view('users.index', compact("users") );
+        $search = $request->input('search');
+        $users = User::where('name','like', '%'.$search.'%')->where('role','=',1)->paginate(10);
+        return view('users.index', compact("users",'search') );
     }
 }
