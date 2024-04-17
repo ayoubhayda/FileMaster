@@ -20,12 +20,12 @@ FileMaster is a collaborative document management system developed using Laravel
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/ayoubhayda/react-admin-dashboard.git`
+1. Clone the repository: `https://github.com/ayoubhayda/FileMaster.git`
 2. Install dependencies: `composer install`
-3. Create a copy of the .env.example file and rename it to .env. Update the database configuration in the .env file with your database credentials.
+3. Create a copy of the `.env.example` file and rename it to .env. Update the database configuration in the `.env` file with your database credentials.
 4. Run database migrations:: `php artisan migrate`
 5. Serve the application:: `php artisan serve`
-6. Visit http://localhost:8000 in your web browser to access FileMaster.
+6. Visit `http://localhost:8000` in your web browser to access FileMaster.
 
 ## Contributions and Feedback
 
