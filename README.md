@@ -16,7 +16,7 @@ FileMaster is a collaborative document management system developed using Laravel
 
 ## Home Page Screenshot
 
-![FileMaster Home Page](https://res.cloudinary.com/duxego3ja/image/upload/v1713352606/filemaster/mbwphak2i0akrq1apaxk.png)
+![FileMaster Home Page](https://u32tyflba0.ufs.sh/f/kc5DWd3AVQkLKUnS2xBEpnBw5ZYTMfG3D6W9OkvIcbo8aAXs)
 
 ## Installation
 
